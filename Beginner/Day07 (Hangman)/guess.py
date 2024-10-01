@@ -23,3 +23,5 @@ while displayword != secretword:
       continue
     else:
       displayword[1] = "_"
+
+print("You Win")
