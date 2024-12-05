@@ -30,10 +30,10 @@ while replay == 'y':
   computer_number = int(random.randint(0,100))
 
   # Player Guess
-  while (outcome != 'same') and (guesses > 1):
-    player_guess = int(input(f'Attempt to guess the seccret number.\nThe number is between 1 to and 100.\nYou have {guesses} guesses left.\n'))
+  while (outcome != 'same') and (guesses > 0):
+    player_guess = int(input(f'Attempt to guess the seccret number.\nThe number is between 1 and 100.\nYou have {guesses} guesses left.\n'))
 
-    #Compare
+    #Comparey
     if player_guess == computer_number:
       outcome = "same"
     elif player_guess > computer_number:
