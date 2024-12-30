@@ -2,15 +2,32 @@ from menu import Menu, MenuItem
 from coffee_maker import CoffeeMaker
 from money_machine import MoneyMachine
 
-# User input
+#iniatialise
+machine = CoffeeMaker()
 available_Coffee = Menu()
 
-selected_coffee = input("Select desired coffee? " + available_Coffee.get_items()+"\n")
-chosen_coffee = available_Coffee.find_drink(selected_coffee)
-print(chosen_coffee.name)
-# Turn off function
-if
-# Report Print Function
+# User input
+while True:
+  selected_coffee = input("Select desired coffee? " + available_Coffee.get_items()+"\n")
+
+  # Turn off function
+  if selected_coffee == "off":
+    print("Switching Off...")
+    exit
+
+  # Report Print Function
+  elif selected_coffee == "report":
+    machine.report()
+
+  elif available_Coffee.find_drink(selected_coffee) == False:
+      continue
+  else:
+      print("nuts")
+  
+    
+
+
+
 
 # Resource Checker Function
 
