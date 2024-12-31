@@ -3,27 +3,33 @@ from coffee_maker import CoffeeMaker
 from money_machine import MoneyMachine
 
 #iniatialise
-machine = CoffeeMaker()
-available_Coffee = Menu()
+coffee = MenuItem(" ", 0, 0, 0, 0)
+coffeemaker = CoffeeMaker()
+menu = Menu()
+money_machine = MoneyMachine()
 
 # User input
-while True:
-  selected_coffee = input("Select desired coffee? " + available_Coffee.get_items()+"\n")
 
-  # Turn off function
-  if selected_coffee == "off":
-    print("Switching Off...")
-    exit
+coffee.name = input("Select desired coffee? " + menu.get_items()+"\n")
 
-  # Report Print Function
-  elif selected_coffee == "report":
-    machine.report()
+# Turn off function
+if coffee.name == "off":
+  print("Switching Off...")
+  exit
 
-  elif available_Coffee.find_drink(selected_coffee) == False:
-      continue
-  else:
-      print("nuts")
+# Report Print Function
+elif coffee.name == "report":
+  coffeemaker.report()
+  exit
+
+if menu.find_drink(coffee.name):
+  print("Coffee Option available")
   
+
+
+
+
+
     
 
 
