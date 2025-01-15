@@ -8,6 +8,8 @@ for i in range(len(question_data)):
     question = Question(question_data[i]['text'],(question_data[i]['answer']))
     question_bank.append(question)
 
-question = QuizBrain(question_bank)
-question.next_question()
-print("Finish")
+quiz = QuizBrain(question_bank)
+
+while quiz.still_has_questions():
+    quiz.next_question()
+        
