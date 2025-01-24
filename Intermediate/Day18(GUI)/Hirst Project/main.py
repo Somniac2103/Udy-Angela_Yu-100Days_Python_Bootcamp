@@ -20,10 +20,18 @@ timmy = Turtle()
 screen = Screen()
 screen.colormode(255)
 
-row = 5
-column = 5
+timmy.speed("fastest")
+timmy.hideturtle()
+timmy.penup()
+timmy.setposition([250, -250])
+timmy.pendown()
 
-circle_range = 5
+
+
+row = 10
+column = 10
+
+circle_range = 20
 spacer = 50
 
 for i in range(column):
@@ -36,16 +44,15 @@ for i in range(column):
     else:
         timmy.penup()
         timmy.left(90)
-        timmy.forward(spacer + 2*circle_range)
+        timmy.forward(spacer)
         timmy.left(90)
         timmy.forward(spacer)
 
     for j in range(int(row)):        
         number = randint(1, 29)
         selectedColor = (rgb_colors[number][0],rgb_colors[number][1],rgb_colors[number][2])
-        timmy.color(selectedColor)
         timmy.pendown()
-        timmy.circle(circle_range)
+        timmy.dot(circle_range, selectedColor)
         timmy.penup()
         timmy.forward(spacer)
         
