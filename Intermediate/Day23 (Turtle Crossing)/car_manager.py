@@ -15,7 +15,8 @@ class CarManager(Turtle):
         self.penup()
         self.goto(280, random.randint(-280, 280))
         self.setheading(180)
+        self.car_speed = random.randrange(1,10)
     
     def car_move(self):
-        new_x = self.xcor() - STARTING_MOVE_DISTANCE
+        new_x = self.xcor() - self.car_speed
         self.goto(new_x, self.ycor())
