@@ -16,8 +16,6 @@ car_number = 60
 player = Player()
 score = Scoreboard()
 
-
-
 screen.listen()
 screen.onkey(player.turtle_move,"Up")
 
@@ -45,8 +43,11 @@ while game_is_on:
         #Collision 
         if player.distance(car.xcor(),car.ycor()) < 35:
             game_is_on = False
+            score.game_over()
     
         
 
 
     screen.update()
+
+screen.exitonclick()
