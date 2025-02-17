@@ -2,14 +2,28 @@
 # https://www.w3schools.com/python/ref_string_replace.asp
 # https://www.w3schools.com/python/ref_string_strip.asp
 
+flist = open("./Input/Names/invited_names.txt", "r")
+people_array = flist.readlines()
+print(people_array)
 
-#TODO: Create a letter using starting_letter.txt 
-ftemplate = open("./Input/Letters/starting_letter.txt", "r")
-print(ftemplate)
+for person in people_array:
 
-f = open("./Output/new.txt", "w")
-f.write(ftemplate)
-print(f)
+    ftemplate = open("./Input/Letters/starting_letter.txt", "r")
+    content_array = ftemplate.readlines()
+    content = ""
+
+    for part in content_array:
+        content += part
+
+    person = person.strip(f'\n') 
+
+    content = content.replace("[name]", person)
+
+    invitee = f'./Output/ReadyToSend/{person}.txt'
+
+    f = open(invitee, "w")
+    f.write(content)
+
 
 
 #for each name in invited_names.txt
