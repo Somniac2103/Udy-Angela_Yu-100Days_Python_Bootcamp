@@ -1,7 +1,3 @@
-# https://www.w3schools.com/python/ref_file_readlines.asp
-# https://www.w3schools.com/python/ref_string_replace.asp
-# https://www.w3schools.com/python/ref_string_strip.asp
-
 flist = open("./Input/Names/invited_names.txt", "r")
 people_array = flist.readlines()
 print(people_array)
