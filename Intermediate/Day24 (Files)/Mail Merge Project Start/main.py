@@ -20,9 +20,4 @@ for person in people_array:
     f = open(invitee, "w")
     f.write(content)
 
-
-
-#for each name in invited_names.txt
-#Replace the [name] placeholder with the actual name.
-#Save the letters in the folder "ReadyToSend".
     
