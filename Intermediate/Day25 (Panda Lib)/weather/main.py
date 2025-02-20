@@ -24,13 +24,30 @@ data = pandas.read_csv("weather_data.csv")
 # temp_list = data["temp"].to_list()
 # print(temp_list)
 
-temp_ave = data["temp"].mean()
-print(int(round(temp_ave,0)))
+# temp_ave = data["temp"].mean()
+# print(int(round(temp_ave,0)))
 
-print(int(round(data["temp"].max(),0)))
+# print(int(round(data["temp"].max(),0)))
 
-print(data["condition"])
-print(data.condition)
+# print(data["condition"])
+# print(data.condition)
+
+# get data in row
+
+# print(data[data.day == "Monday"])
+
+# print(data[data.temp == data.temp.max()])
+
+# print(((data[data.day == "Monday"].temp)*9/5)+32)
+
+# create a dataframe afrom scratch
+data_dict = {
+    "students" : [ "Amy", "James", "Angela"],
+    "scores" : [76, 56, 65]
+}
+
+data = pandas.DataFrame(data_dict)
+print(data)
 
 
 
