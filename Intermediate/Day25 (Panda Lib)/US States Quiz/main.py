@@ -15,44 +15,28 @@ turtle.shape(image)
 # turtle.onscreenclick(get_mouse_click_coor)
 
 # turtle.mainloop()
-
-FONT = ("Courier", 24, "normal")
-
-class Statename(turtle.Turtle):
-     def __init__(self):
-        super().__init__()
-        self.name = index.state
-        self.x = index.x
-        self.y = index.y
-        self.color("black")
-        self.penup()
-        self.hideturtle()
-        self.goto(self.x, self.y)
-        self.write(self.name, align="center", font=FONT)   
-   
-
-answer_state = screen.textinput(title="Guess the State", prompt="What's another state's name?")
-answer_state = answer_state.capitalize()
-
 data = pandas.read_csv("50_states.csv")
-# print(data)
+all_states = data.state.to_list()
+guessed_states= []
 
-index = (data[data.state == answer_state])
-# print(index)
+while len(guessed_states) < 50:
 
-if index.empty:
-    print("No state Found")    
-else:
-    print("State Found")
-    Statename(index)
-    
+    answer_state = screen.textinput(title=f"{len(guessed_states)}/50 States Correct", prompt="What's another state's name?").capitalize()   
 
+    if answer_state == "Exit":
+        missing_states=[]
+        for state in all_states:
+            if state not in guessed_states:
+                missing_states.append(state)
+        new_data = pandas.DataFrame(missing_states)
+        new_data.to_csv("states_to_learn.csv")
+        break
 
-
-# TODO Write correct quesses on map
-# TODO Use loop to allow player to keep quessing
-# TODO Record the correct quesses in list
-# TODO Keep track off the score
-
-
-screen.exitonclick()
+    if answer_state in all_states:
+        guessed_states.append(answer_state)
+        t = turtle.Turtle()
+        t.hideturtle()
+        t.penup()
+        state_data = data[data.state == answer_state]
+        t.goto(state_data.x.item(), state_data.y.item())
+        t.write(answer_state)
