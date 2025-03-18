@@ -1,8 +1,29 @@
 from tkinter import *
+from tkinter import messagebox
 FONT_NAME = "Courier"
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+
+def save():
+    website = website_input.get()
+    user = user_input.get()
+    password = password_input.get()
+
+    messagebox.showinfo(title="Title", message="message")
+
+    entry = f'${website} | ${user} | ${password}\n'
+    
+    password_list = open("./passwords.txt", "a")
+    password_list.write(entry)
+    password_list.close()
+
+    website_input.delete(0,'end')
+    password_input.delete(0,'end')
+
+
+
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -37,7 +58,7 @@ password_input.grid(row=3, column=1)
 generate_button = Button(text="Generate Password", font=(FONT_NAME, 10))
 generate_button.grid(row= 3, column= 2)
 
-add_button = Button(text="Add", font=(FONT_NAME, 10), width=45)
+add_button = Button(text="Add", font=(FONT_NAME, 10), width=45, command=save)
 add_button.grid(row= 4, column= 1, columnspan=2)
 
 window.mainloop()
