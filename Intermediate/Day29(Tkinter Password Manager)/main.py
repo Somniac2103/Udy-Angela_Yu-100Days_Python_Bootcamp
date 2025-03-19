@@ -1,7 +1,26 @@
 from tkinter import *
 from tkinter import messagebox
+from random import randint, choice, shuffle
 FONT_NAME = "Courier"
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+#Password Generator Project
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+password_letters_list = [choice(letters) for _ in range(randint(8, 10))]
+password_number_list = [choice(numbers) for _ in range(randint(2, 4))]
+password_symbols_list = [choice(symbols) for _ in range(randint(2, 4))]
+
+password_list = password_letters_list + password_number_list + password_symbols_list
+
+shuffle(password_list)
+
+password = ""
+for char in password_list:
+  password += char
+
+print(f"Your password is: {password}")
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -10,16 +29,24 @@ def save():
     user = user_input.get()
     password = password_input.get()
 
-    messagebox.showinfo(title="Title", message="message")
+    if website and user and password:
 
-    entry = f'${website} | ${user} | ${password}\n'
-    
-    password_list = open("./passwords.txt", "a")
-    password_list.write(entry)
-    password_list.close()
+        is_ok = messagebox.askokcancel(title=website, message= f"Check the details: \nEmail: {user} \nPassword: {password} \nIs it ok to save?")
 
-    website_input.delete(0,'end')
-    password_input.delete(0,'end')
+        if is_ok:
+            entry = f'${website} | ${user} | ${password}\n'
+            
+            with open("./passwords.txt", "a") as data:
+                data.write(entry)
+
+            # password_list = open("./passwords.txt", "a")
+            # password_list.write(entry)
+            # password_list.close()
+
+            website_input.delete(0,'end')
+            password_input.delete(0,'end')
+    else:
+        messagebox.showwarning(title="Warning!", message="All fields are required")
 
 
 
