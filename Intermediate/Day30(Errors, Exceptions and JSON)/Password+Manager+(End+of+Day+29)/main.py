@@ -4,6 +4,21 @@ from random import choice, randint, shuffle
 import pyperclip
 import json
 
+# ---------------------------- SEARCH --------------------------------------------#
+def find_password():
+    website = website_entry.get()
+    print(website)
+    with open("data.json", "r") as data_file:
+        data = json.load(data_file)
+    print(data)
+    result= [key for key,value in data.items() if key == website][0]
+    print(result)
+    email = data[result]["email"]
+    print(email)
+    password = data[result]["password"]
+    print(password)
+    if result:
+         messagebox.showinfo(title=f"Entry Found! Result for {result}", message=f'Your user name is {email}\nYour password is {password}')
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 #Password Generator Project
@@ -84,6 +99,8 @@ password_entry = Entry(width=21)
 password_entry.grid(row=3, column=1)
 
 # Buttons
+search_button = Button(text="Search", command=find_password)
+search_button.grid(row=1, column=2)
 generate_password_button = Button(text="Generate Password", command=generate_password)
 generate_password_button.grid(row=3, column=2)
 add_button = Button(text="Add", width=36, command=save)
