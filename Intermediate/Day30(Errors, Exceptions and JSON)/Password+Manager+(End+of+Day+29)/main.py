@@ -10,13 +10,9 @@ def find_password():
     print(website)
     with open("data.json", "r") as data_file:
         data = json.load(data_file)
-    print(data)
     result= [key for key,value in data.items() if key == website][0]
-    print(result)
     email = data[result]["email"]
-    print(email)
     password = data[result]["password"]
-    print(password)
     if result:
          messagebox.showinfo(title=f"Entry Found! Result for {result}", message=f'Your user name is {email}\nYour password is {password}')
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
