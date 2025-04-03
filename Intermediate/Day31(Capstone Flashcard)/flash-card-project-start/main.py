@@ -8,7 +8,16 @@ data = pandas.read_csv("data/french_words.csv")
 to_learn = data.to_dict(orient = "records")
 
 # ---------------------------- FUNCTIONS ------------------------------ # 
+def learning_table_update():
+    global current
+    to_learn.remove(current_card)
+    
+    to_learn.to_csv('/data/words_to_learn.csv', index=False)  
+    next_card()
+
 def next_card():
+    global fliptimer
+    global current_card
     current_card = random.choice(to_learn)
     window.after_cancel(fliptimer)
     # print(current_card)
@@ -16,7 +25,7 @@ def next_card():
     canvas.itemconfig(canvas_img, image=card_front_img)
     canvas.itemconfig(language_text, text="French", fill="black")
     canvas.itemconfig(word_text, text=current_card["French"], fill="black")
-    window.after(3000, lambda: update_card(current_card))
+    fliptimer = window.after(3000, lambda: update_card(current_card))
 
 def update_card(current_card):
     # print(current_card)
@@ -41,7 +50,7 @@ language_text = canvas.create_text(400, 150, text="Title", font=("Ariel", 40, "i
 word_text = canvas.create_text(400, 263, text="Word", font=("Ariel", 60, "bold"))
 
 check_image = PhotoImage(file="./images/right.png")
-right_button = Button(image=check_image, highlightthickness=0, bd = 0, command=next_card)
+right_button = Button(image=check_image, highlightthickness=0, bd = 0, command=learning_table_update)
 right_button.grid(row=2, column=1)
 
 cross_image = PhotoImage(file="./images/wrong.png")
