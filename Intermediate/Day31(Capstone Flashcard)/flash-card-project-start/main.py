@@ -4,15 +4,17 @@ import random
 
 BACKGROUND_COLOR = "#B1DDC6"
 
-data = pandas.read_csv("data/french_words.csv")
+try:
+    data = pandas.read_csv("data/words_to_learn.csv")
+except FileNotFoundError:
+    data = pandas.read_csv("data/french_words.csv")
 to_learn = data.to_dict(orient = "records")
 
 # ---------------------------- FUNCTIONS ------------------------------ # 
 def learning_table_update():
-    global current
+    global current, to_learn
     to_learn.remove(current_card)
-    
-    to_learn.to_csv('/data/words_to_learn.csv', index=False)  
+    pandas.DataFrame(to_learn).to_csv('data/words_to_learn.csv', index=False) 
     next_card()
 
 def next_card():
