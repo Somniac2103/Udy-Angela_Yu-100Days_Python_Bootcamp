@@ -17,12 +17,16 @@ endpoint = "https://api.openweathermap.org/data/2.5/forecast"
 weather_params ={
     "lat" : 51.507351,
     "lon" : -0.127758,
-    "appid" : "04fab6cbc8cd4b52e350ccd0913e52e0"
+    "appid" : "04fab6cbc8cd4b52e350ccd0913e52e0",
+    "cnt" : 4,
 }
 
 response = requests.get(endpoint, params=weather_params)
 response.raise_for_status()
-print(response.status_code)
+# print(response.status_code)
 data = response.json()
-print(data)
+for hour_data in data["list"]:
+    if hour_data['weather'][0]['id'] < 700:
+        print("Bring umbrella")
+        break
 
