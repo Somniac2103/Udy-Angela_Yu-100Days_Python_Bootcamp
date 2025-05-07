@@ -1,9 +1,10 @@
 import requests
-from twilio.rest import Clinet
+from twilio.rest import Client
+import os
 
 # lat = 51.507351
 # lon = -0.127758
-# api = "04fab6cbc8cd4b52e350ccd0913e52e0"
+# api = os.environ.get("OWM_API_KEY")
 
 # endpoint = f'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={api}'
 
@@ -18,7 +19,7 @@ endpoint = "https://api.openweathermap.org/data/2.5/forecast"
 weather_params ={
     "lat" : 51.507351,
     "lon" : -0.127758,
-    "appid" : "04fab6cbc8cd4b52e350ccd0913e52e0",
+    "appid" : os.environ.get("OWM_API_KEY"),
     "cnt" : 4,
 }
 
