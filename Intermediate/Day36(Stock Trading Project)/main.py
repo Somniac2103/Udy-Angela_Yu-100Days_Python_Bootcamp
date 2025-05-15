@@ -2,13 +2,17 @@ import os
 import requests
 from datetime import datetime, timedelta
 
-date = datetime.today().date() - timedelta(days=4)
+date = datetime.today().date() - timedelta(days=1)
 yesterday = date - timedelta(days=1)
 day_before_yesterday = yesterday - timedelta(days=1)
 
 string_date = str(date)
 string_yesterday = str(yesterday)
 string_day_before_yesterday = str(day_before_yesterday)
+
+print(string_date)
+print(string_yesterday)
+print(string_day_before_yesterday)
 
 ALPHA_API_KEY = os.environ.get("ALPHA_API_KEY")
 STOCK_NAME = "TSLA"
@@ -23,7 +27,7 @@ stock_params ={
 
 stock_response = requests.get(STOCK_ENDPOINT, params=stock_params)
 stock_data = stock_response.json()
-# print(stock_data['Time Series (Daily)'])
+print(stock_data['Time Series (Daily)'])
 
 price_change = float(stock_data['Time Series (Daily)'][string_date]['4. close']) - float(stock_data['Time Series (Daily)'][string_yesterday]['4. close'])
 print(price_change)
@@ -56,35 +60,12 @@ news_data = news_response.json()
 
 for i in range(3):
     print(news_data['articles'][i]['title'])
+    print("------")
     print(news_data['articles'][i]['description'])
     print("------>")
-
-
-    ## STEP 2: https://newsapi.org/ 
-    # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
-
-
-
-#TODO 7. - Use Python slice operator to create a list that contains the first 3 articles. Hint: https://stackoverflow.com/questions/509211/understanding-slice-notation
 
 
     ## STEP 3: Use twilio.com/docs/sms/quickstart/python
     #to send a separate message with each article's title and description to your phone number. 
 
-#TODO 8. - Create a new list of the first 3 article's headline and description using list comprehension.
-
-#TODO 9. - Send each article as a separate message via Twilio. 
-
-
-
-#Optional TODO: Format the message like this: 
-"""
-TSLA: 🔺2%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-or
-"TSLA: 🔻5%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-"""
 
