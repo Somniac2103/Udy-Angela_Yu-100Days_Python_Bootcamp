@@ -1,6 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -37,15 +38,49 @@ graph_headers = {
 # print(response.text)
 
 # RECORD DATA ----->
-PIXELA_GRAPH_NAME = "graph1"
-PIXELA_DATA_ENDPOINT = f'{PIXELA_WEBSITE}/v1/users/{PIXELA_USERNAME}/graphs/{PIXELA_GRAPH_NAME}'
+PIXELA_GRAPH_ID = "graph1"
+
+PIXELA_DATA_ENDPOINT = f'{PIXELA_WEBSITE}/v1/users/{PIXELA_USERNAME}/graphs/{PIXELA_GRAPH_ID}'
+
+today = datetime.now().strftime("%Y%m%d")
+
 data_body = {
-    "date" : "20250519",
-    "quantity" : "9.0",
+    "date" : today,
+    "quantity" : "9.74",
 }
 
 data_headers = {
     "X-USER-TOKEN" : PIXELA_API_TOKEN
 }
-response = requests.post(url=PIXELA_DATA_ENDPOINT, headers=data_headers, data=data_body)
+# response = requests.post(url=PIXELA_DATA_ENDPOINT, headers=data_headers, json=data_body)
+# print(response.text)
+
+
+# CHANGE DATA POINT ----->
+
+DATEOFCHANGE = "20250519"
+PIXELA_DATA_CHANGE_ENDPOINT = f'{PIXELA_WEBSITE}/v1/users/{PIXELA_USERNAME}/graphs/{PIXELA_GRAPH_ID}/{DATEOFCHANGE}'
+
+data_body = {
+    "quantity" : "2.1",
+}
+
+data_headers = {
+    "X-USER-TOKEN" : PIXELA_API_TOKEN
+}
+
+# response = requests.put(url=PIXELA_DATA_CHANGE_ENDPOINT, headers=data_headers, json=data_body)
+
+
+# DELETE DATA POINT ----->
+DATETODELETE = "20250520"
+PIXELA_DATA_DELETE_ENDPOINT = f'{PIXELA_WEBSITE}/v1/users/{PIXELA_USERNAME}/graphs/{PIXELA_GRAPH_ID}/{DATETODELETE}'
+
+data_headers = {
+    "X-USER-TOKEN" : PIXELA_API_TOKEN
+}
+
+response = requests.delete(url=PIXELA_DATA_DELETE_ENDPOINT, headers=data_headers)
+
+print(response.status_code)
 print(response.text)
