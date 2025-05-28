@@ -22,7 +22,7 @@ NUTRITIONIX_API_APP_KEYS=os.getenv("NUTRITIONIX_API_APP_KEYS")
 NUTRITIONIX_ENDPOINT = NUTRITIONIX_WEBSITE + "/v2/natural/exercise"
 
 nutritionix_params = {
-    "query"  : 'I ran 1 mile',
+    "query"  : exercise_input,
     "weight_kg" : 90,
     "height_cm" : 176,
     "age" : 40
@@ -43,6 +43,7 @@ result = response.json()
 SHEETY_API_WEBSITE = "https://api.sheety.co/"
 SHEETY_ACCOUNT = "64c5e842b391c3c5f830594bcee9e8fb"
 SHEETY_ACCOUNT_SHEET = "sheet1"
+SHEETY_API_TOKEN = os.getenv("SHEETY_API_TOKEN")
 
 SHEETY_ENDPOINT = F"{SHEETY_API_WEBSITE}{SHEETY_ACCOUNT}/workoutTracking/{SHEETY_ACCOUNT_SHEET}"
 
@@ -50,17 +51,27 @@ today_date = datetime.now().strftime("%d/%m/%Y")
 now_time = datetime.now(). strftime("%X")
 
 for exercise in result["exercises"]:
-    sheety_body = {
-      SHEETY_ACCOUNT_SHEET : {
-        "date"  : today_date,
-        "time" : now_time,
-        "exercise" : exercise["name"].title(),
-        "duration" : exercise["duration_min"],
-        "calories" : exercise["nf_calories"]
-    } 
-    
-}
+    try:
+        sheety_body = {
+            SHEETY_ACCOUNT_SHEET: {
+                "date": today_date,
+                "time": now_time,
+                "exercise": exercise["name"].title(),
+                "duration": round(exercise["duration_min"], 2),
+                "calories": round(exercise["nf_calories"], 2)
+            }
+        }
 
-sheet_response = requests.post(url=SHEETY_ENDPOINT, json=sheety_body)
-print(sheet_response.status_code)
-print(sheet_response.text)
+        sheety_headers = {
+            "Authorization": f"Bearer {SHEETY_API_TOKEN}"
+        }
+
+
+        print("Sending to Sheety:", sheety_body)
+
+        sheet_response = requests.post(SHEETY_ENDPOINT, json=sheety_body, headers=sheety_headers)
+        sheet_response.raise_for_status()  # Raises error if 4xx or 5xx
+        print(sheet_response.status_code)
+        print(sheet_response.text)
+    except Exception as e:
+        print("Error posting to Sheety:", e)
